@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.shit-tweet {
+    background-color: #804040;
+    color: white;
+}
+.like-tweet {
+    background-color: #2860f0;
+    color: white;
+}
+.dislike-tweet {
+    background-color: #d8d8d8;
+    color: black;
+}
+.comment-tweet {
+    background-color: #2860f0;
+    color: white;
+}
+
+.auth {
+    background-color: green;
+    color: white;
+}

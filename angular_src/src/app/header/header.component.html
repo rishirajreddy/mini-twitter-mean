@@ -1,0 +1,21 @@
+<div class="container">
+    <h1>Home</h1>
+    <button mat-icon-button class="auth-icon" 
+    [matMenuTriggerFor]="menu">
+      <mat-icon
+      [ngClass]="loggedIn ? 'unlock':''"
+      >{{loggedIn ? 'lock_open': 'lock'}}</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+          <button mat-menu-item 
+          *ngIf="loggedIn"
+          (click)="signOut()">Logut</button>
+          <button mat-menu-item
+          *ngIf="!loggedIn" 
+          (click)="openDialog('login')">Login</button>
+          <button mat-menu-item
+          *ngIf="!loggedIn" 
+          (click)="openDialog('signup')">SignUp</button>
+        </mat-menu>
+</div>
+    <br>

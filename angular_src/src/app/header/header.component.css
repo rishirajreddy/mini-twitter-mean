@@ -1,0 +1,19 @@
+.container {
+    margin-top: 20px;
+    display: flex;
+    justify-items: center;
+    justify-content: space-evenly;
+}
+h1 {
+    font-weight: 300;
+}
+/* .auth-icon {
+    margin-top: 7px;
+} */
+
+.unlock {
+    color: blue;
+}
+
+
+/* for modal form */

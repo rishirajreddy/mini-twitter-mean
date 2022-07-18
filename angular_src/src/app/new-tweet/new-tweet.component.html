@@ -1,0 +1,141 @@
+<app-header></app-header>
+<div class="form" >
+  <div class="titles">
+      <h5 class="mat-h5"><b>Logged In as</b></h5>
+      <h1 class="mat-headline">{{username}}</h1>
+  </div>
+        <div class="form-group"></div>
+        <form
+          (ngSubmit)="onSubmitTweet(f)"
+          #f = "ngForm"
+        >
+            <input 
+            ngModel
+            name="tweet"
+            type="text" 
+            class="tweet-field" placeholder="What you're thinking?">
+            <button 
+            mat-icon-button class="send">
+              <mat-icon>send</mat-icon>
+              </button>
+    </form>
+  </div>
+
+<mat-spinner
+style="margin:30px auto;"
+  diameter=60
+  strokeWidth=7
+  *ngIf="isLoading"
+></mat-spinner>
+
+<div 
+  *ngIf="!isLoading"
+class="container">
+  <mat-card class="card"
+  *ngFor="let tweet of tweetsArr; let i = index"
+  >
+    <mat-card-subtitle>{{tweet.createdAt}}</mat-card-subtitle>
+    <mat-card-content>
+        <p>{{tweet.username}}</p>
+        <!-- <p>This card has divider and indeterminate progress as footer</p> -->
+        <mat-card-title>{{tweet.content}}</mat-card-title>
+
+<!-- comments section -->
+  <mat-expansion-panel 
+          hideToggle=true
+          (opened)="openPanel(i)"
+          (closed)="closePanel(i)"
+          [disabled]="tweet.commentedBy.length <= 0"
+          >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+            *ngIf="tweet.commentedBy.length > 0"
+            >
+      {{tweet.expansion ? 'Close Comments':'Open Comments'}}
+    </mat-panel-title>
+            <mat-panel-title
+              *ngIf="tweet.commentedBy.length <= 0"
+            >
+      "No comments yet.. Feel free to add some comments"
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-divider inset></mat-divider>
+  <div
+  *ngFor="let comment of tweet.commentedBy"
+  >
+  <div
+  *ngFor="let content of comment.comments"
+  >
+  <span>{{comment.name+": "}}</span>
+  <b>{{content.comment}}</b>
+</div>
+</div>
+</mat-expansion-panel>
+
+<!-- comments section -->
+<ng-template #popContent>
+  <b>{{tweet.likedBy.length > 0 ? tweet.likedBy:'☹'}}</b>
+</ng-template>
+
+
+</mat-card-content>
+    <mat-divider inset></mat-divider>
+    <mat-card-actions 
+    class="icons">
+      <button 
+      (click)="onLiked(tweet._id)"
+      [ngbPopover]="popContent"  
+      triggers="mouseenter:mouseleave" 
+      [popoverTitle]= "tweet.likedBy.length > 0 ? 'Likes':'No Likes'"
+      [ngClass]= "tweet.likedBy.includes(user) ? 'liked':''"
+      mat-icon-button class="like">
+      <mat-icon>favorite</mat-icon>
+      <span>{{tweet.likedBy.length}}</span>
+    </button>
+
+    <button
+    (click)="open(content, tweet._id)"
+    [ngClass]="tweet.comments > 0 ? 'commented':''"
+      mat-icon-button class="comment">
+        <mat-icon>comment</mat-icon>
+        <span>{{tweet.comments}}</span>
+      </button>
+    
+  </mat-card-actions>
+    <!-- <mat-card-footer>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer> -->
+  </mat-card>
+</div>
+
+<!-- comment modal -->
+
+<ng-template #content let-modal>
+  <div class="modal-header" centered="true">
+    <h4 class="modal-title" id="modal-basic-title">Add Comment</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form
+    (ngSubmit)="openCommentBox(form)"
+    #form = "ngForm"
+    >
+      <div class="mb-3">
+        <label for="comment">{{username}}</label>
+        <div class="input-group">
+          <input 
+          id="comment" 
+          class="form-control" 
+          placeholder="Comment Something..." 
+          ngModel
+          name="comment"
+          type="text" 
+          >
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark">Comment</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

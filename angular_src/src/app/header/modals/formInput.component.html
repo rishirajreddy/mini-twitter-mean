@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{mode === 'signup' ? 'Join the Mini-Twitter': 'Welcome Back Dude!!'}}</h1>
+        <form
+            (ngSubmit)="onSubmit(f)"
+            #f = "ngForm"
+        >
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input
+              ngModel
+              name="username" 
+              matInput 
+              placeholder="Enter username">
+            </mat-form-field>
+            <mat-form-field *ngIf="mode === 'signup'">
+                <mat-label>Email</mat-label>
+                <input 
+                ngModel
+                name="email"
+                matInput 
+                placeholder="Enter email">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input
+                type="password"
+                ngModel
+                name="password" 
+                matInput 
+                placeholder="Enter password">
+            </mat-form-field>
+            <div mat-dialog-actions>
+              <button mat-button
+              (click)="onNoClick()" type="button">Cancel</button>
+              <button mat-button  
+              cdkFocusInitial 
+              type="submit">Let's Go</button>
+            </div>
+        </form>

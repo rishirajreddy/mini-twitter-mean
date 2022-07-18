@@ -1,0 +1,67 @@
+.container {
+    /* position: absolute; */
+    margin-top: 30px;
+    width: 100%;
+}
+
+.form {
+    display: inline;
+    text-align: center;
+}
+
+.tweet-field {
+    padding: 15px 70px;
+    margin-right: 20px;
+    border-radius: 28px;
+    border: 1px solid #d8d8d8;
+}
+
+.tweet-field:focus {
+    outline: solid ;
+    outline-width: 2px;
+    outline-color: #c8c8c8 ;
+}
+
+.card {
+    margin-bottom: 30px;
+    /* max-width: 400px; */
+    /* display: block; */
+    /* position: relative; */
+    /* margin-left: 30%; */
+}
+.icons {
+    display: flex;
+    justify-content: flex-end;
+}   
+button {
+    margin: 0 30px;
+}
+
+.liked {
+    color: red;
+}
+.commented {
+    color: blue;
+}
+
+/* comment window styles */
+
+.comment-buttons {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    /* justify-content: space-around; */
+    /* justify-items: center; */
+}
+
+.titles {
+    line-height: 0.1;
+}
+.titles h5 {
+    margin: 0px 0px 0px;
+    color: #d8d8d8;
+}
+
+
+
+  
