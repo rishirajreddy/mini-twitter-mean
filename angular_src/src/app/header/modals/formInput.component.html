@@ -9,7 +9,11 @@
               ngModel
               name="username" 
               matInput 
-              placeholder="Enter username">
+              placeholder="Enter username"
+              required
+              minlength="6"
+              #username="ngModel"
+              >
             </mat-form-field>
             <mat-form-field *ngIf="mode === 'signup'">
                 <mat-label>Email</mat-label>
@@ -17,7 +21,12 @@
                 ngModel
                 name="email"
                 matInput 
-                placeholder="Enter email">
+                placeholder="Enter email"
+                required
+                email="true"
+                #email="ngModel"
+                >
+                <mat-error *ngIf="email.invalid">Please enter valid email</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Password</mat-label>
@@ -26,12 +35,16 @@
                 ngModel
                 name="password" 
                 matInput 
+                required
+                minlength="6"
+                #password="ngModel" 
                 placeholder="Enter password">
             </mat-form-field>
             <div mat-dialog-actions>
               <button mat-button
               (click)="onNoClick()" type="button">Cancel</button>
-              <button mat-button  
+              <button mat-button
+              [disabled]="!f.valid"  
               cdkFocusInitial 
               type="submit">Let's Go</button>
             </div>

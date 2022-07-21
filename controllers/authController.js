@@ -16,28 +16,40 @@ exports.getAllUsers = async(req,res) => {
 exports.registerUser = async(req, res) => {
     const {username, email, password} = req.body;
     const hashPassword = await bcrypt.hash(password,10);
-    const user = new User({
+    const newUser = new User({
         username,
         email,
         password: hashPassword
     });
-    let token = jwt.sign({username:req.body.username}, 
-        config.key,{
-            expiresIn: "1h"
-        })
-    await user.save()
-    .then(() => {
-        console.log("User registered!!");
-        res.json({
-            msg:"User registered successfully!!",
-            data: {
-                username,
-                token
-            }
-        })
-    })
-    .catch(err => console.log(err));
-}
+    
+            let token = jwt.sign({username:req.body.username}, 
+                config.key,{
+                    expiresIn: "1h"
+                })
+              await newUser.save()
+            .then(() => {
+                console.log("User registered!!");
+                res.json({
+                    msg:"User registered successfully!!",
+                    data: {
+                        username,
+                        token
+                    }
+                })
+            })
+            .catch((err) => {
+                if(err.code === 11000 && err.keyValue.username === req.body.username){
+                    res.json({msg:"User with the given username already exists", 
+                    username:username})
+                }else {
+                    res.json({msg:"User with the given email already exists",
+                    email:email
+                })
+                }
+                // console.log(err)
+            });
+        }
+
 
 //signing user
 exports.loginUser = async(req,res) => {

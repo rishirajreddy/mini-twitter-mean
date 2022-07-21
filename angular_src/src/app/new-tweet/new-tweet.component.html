@@ -13,11 +13,23 @@
             ngModel
             name="tweet"
             type="text" 
-            class="tweet-field" placeholder="What you're thinking?">
+            class="tweet-field" 
+            placeholder="What you're thinking?"
+            required
+            minlength="5"
+            #tweet="ngModel"            
+            >
             <button 
-            mat-icon-button class="send">
+            mat-icon-button 
+            class="send"
+            [disabled]="!f.valid"
+            >
               <mat-icon>send</mat-icon>
               </button>
+              <br>
+              <mat-error 
+          *ngIf="tweet.invalid && tweet.touched  && tweet.value === ''">
+          <p class="mat-h5">*Please Enter Something</p> </mat-error>
     </form>
   </div>
 

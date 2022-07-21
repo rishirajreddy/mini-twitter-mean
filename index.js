@@ -12,7 +12,7 @@ require('dotenv').config();
 
 connectDb();
 
-// app.use(cors({origin: "http://localhost:4200"}));
+// app.use(cors({origin: "http://localhost:64806"}));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

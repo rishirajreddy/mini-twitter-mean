@@ -97,12 +97,30 @@ export class FormInputComponent implements OnInit{
             localStorage.setItem('username', v.data.username);
           }
           console.log(v)
-          this.route.navigate(['/tweets']);  
-          this._snackBar.open(`Registered as ${v.data.username}`,"", {
-            duration: 2*1000,
-            verticalPosition: 'top',
-            panelClass: "auth"
-          })
+          if(v.msg === "User with the given email already exists"){
+            this._snackBar.open(`User with email ${v.email} already exists`,"", {
+              duration: 4*1000,
+              verticalPosition: 'top',
+              panelClass: "error"
+            })
+            this.route.navigate(['/']);  
+          }
+          if(v.msg === "User with the given username already exists"){
+            this._snackBar.open(`User with username ${v.username} already exists`,"", {
+              duration: 4*1000,
+              verticalPosition: 'top',
+              panelClass: "error"
+            })
+            this.route.navigate(['/']);  
+          }
+          else {
+            this.route.navigate(['/tweets']);  
+            this._snackBar.open(`Registered as ${v.data.username}`,"", {
+              duration: 2*1000,
+              verticalPosition: 'top',
+              panelClass: "auth"
+            })
+          }
         }
       })
       this.onNoClick();

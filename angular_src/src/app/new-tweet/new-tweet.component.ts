@@ -51,6 +51,10 @@ export class NewTweetComponent implements OnInit {
 
 
   onSubmitTweet(value:NgForm){
+    if(value.value.tweet.trim().length === 0){
+      this.openSnackBar("Please enter some shit","","error")
+      return;
+    }
     console.log(value.value.tweet);
     this.service.createTweet({content: value.value.tweet}).subscribe({
       next: (v) => {
